@@ -1,0 +1,57 @@
+{% extends "webapp/base.html" %}
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+    <div class="flex justify-center items-center mt-10">
+        <form method="GET" action="{% url 'search' %}">
+            <input type="text" name="query" value="{{ query }}" class="mt-20 ml-10 py-2 px-3 w-[500px] rounded-md w-[800px]" placeholder="Type here">
+            <button class="bg-blue-500 text-white rounded-md py-2 px-3 m-0 hover:bg-blue-600 transition-all active:bg-blue-700">Search</button>
+            <a href="{% url 'addnew' %}" class="bg-blue-500 text-white inline-block rounded-md py-2 px-3 m-0 hover:bg-blue-600 transition-all active:bg-blue-700">Add +</a>
+        </form>
+    </div>
+    <br><br>
+    {% if not passwords_result %}
+        <div class="flex justify-center items-center my-3">
+            <div class="px-4 py-2 bg-yellow-200 border-yellow-500 border-l-4 rounded-xl w-[90%] text-xl">Sorry, not found results match '{{ query }}'</div>
+        </div>
+    {% else %}
+    <div class="flex justify-center items-center">
+        <table class="min-w-[95%] table-auto border-collapse">
+            <thead>
+                <tr class="border-blue-400 border-b-2 text-white">
+                    <th class="px-4 py-2">Username</th>
+                    <th class="px-4 py-2">Password</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Web / App</th>
+                    <th class="px-4 py-2">State</th>
+                    <th class="px-4 py-2">Note</th>
+                    <th class="px-4 py-2">View</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for password, decrypted_password in passwords_with_decrypted %}
+                <tr class="text-white">
+                    <td class="px-4 py-2">{{ password.username }}</td>
+                    <td class="px-4 py-2">{{ decrypted_password }}</td>
+                    <td class="px-4 py-2">{{ password.email }}</td>
+                    <td class="px-4 py-2">{{ password.web_or_app }}</td>
+                    {% if password.state == "Strong" %}
+                        <td class="px-4 py-2 text-green-400">{{ password.state }}</td>
+                    {% elif password.state == "Medium" %}
+                        <td class="px-4 py-2 text-yellow-500">{{ password.state }}</td>
+                    {% elif password.state == "Weak" %}
+                        <td class="px-4 py-2 text-orange-500">{{ password.state }}</td>
+                    {% else %}
+                        <td class="px-4 py-2 text-red-600">{{ password.state }}</td>
+                    {% endif %}
+                    <td class="px-4 py-2">{{ password.note }}</td>
+                    <td class="flex justify-center mt-1">
+                        <a href="{% url 'view_password' password.id %}" class="bg-gray-400 text-white rounded-md font-5 p-1 px-2 hover:bg-gray-500 transition-all active:bg-gray-600">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+{% endblock content %}

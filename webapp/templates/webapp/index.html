@@ -1,0 +1,14 @@
+{% extends "webapp/base.html" %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <div class="flex flex-col justify-center items-center my-20">
+        <h1 class="text-white font-semibold text-3xl text-center my-6 mt-10">Keep all your passwords in one secure place.</h1>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="bg-blue-500 text-white rounded-xl text-2sm hover:bg-blue-600 transition-all active:bg-blue-700 p-2 px-4">My Dashboard <i class="fa-solid fa-house"></i></a>
+        {% else %}
+            <a href="{% url 'signup' %}" class="bg-blue-500 text-white rounded-xl text-2sm hover:bg-blue-600 transition-all active:bg-blue-700 p-2 px-4">Sign up <i class="fa-solid fa-user-plus"></i></a>
+        {% endif %}
+    </div>
+{% endblock content %}

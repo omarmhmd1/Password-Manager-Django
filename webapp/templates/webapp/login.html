@@ -1,0 +1,31 @@
+{% extends "webapp/base.html" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+    <div class="flex flex-col justify-center items-center mt-10">
+        <h1 class="font-semibold text-white mt-10 text-3xl">Log in</h1>
+        <form method="POST" class="flex flex-col">
+            {% csrf_token %}
+            <br><br>
+            {% if message %}
+                <div class="bg-red-300 rounded-md border-red-400 border-l-2 p-2">
+                    {{ message }}<br>
+                    {{ message2 }}
+                </div>
+            {% endif %}
+            <br>
+            <label class="text-white text-base">Username</label><br>
+            <input name="username" type="text" required placeholder="Your username" class="rounded-xl w-[300px] py-1 px-2">
+            <br>
+            <label class="text-white text-base">Password</label><br>
+            <input name="password" type="password" required placeholder="Your password" class="rounded-xl w-[300px] py-1 px-2">
+            <br><br>
+            <button class="bg-blue-500 text-white rounded-md py-2 px-3 m-0 hover:bg-blue-600 transition-all active:bg-blue-700">Log in</button>
+            <div class="my-10 flex justify-center items-center">
+                <p class="text-xs text-white">
+                    Don't have you account? 
+                    <a href="{% url 'signup' %}" class="text-xs text-blue-400">Sign up</a>
+                </p>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

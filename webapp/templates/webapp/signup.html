@@ -1,0 +1,38 @@
+{% extends "webapp/base.html" %}
+{% block title %}Sign up{% endblock title %}
+{% block content %}
+    <div class="flex flex-col justify-center items-center mt-10">
+        <h1 class="font-semibold text-white mt-10 text-3xl">Sign up</h1>
+        <form method="POST" class="flex flex-col">
+            {% csrf_token %}
+            <br><br>
+            {% if message %}
+                <div class="bg-red-300 rounded-md border-red-400 border-l-2 p-2">
+                    {{ message }}<br>
+                    {{ message2 }}
+                </div>
+            {% endif %}
+            <br>
+            <label class="text-white text-base">Username</label><br>
+            <input name="username" type="text" required placeholder="Your username" class="rounded-xl w-[300px] py-1 px-2">
+            <br>
+            <label class="text-white text-base">Email</label><br>
+            <input name="email" type="email" required placeholder="Your email" class="rounded-xl w-[300px] py-1 px-2">
+            <br>
+            <label class="text-white text-base">Password</label><br>
+            <input name="password" type="password" required placeholder="Your password" class="rounded-xl w-[300px] py-1 px-2">
+            <p class="mt-1 text-xs text-gray-500">Your password must be strong.</p>
+            <br>
+            <label class="text-white text-base">Confirm Password</label><br>
+            <input name="password2" type="password" required placeholder="Repeat your password" class="rounded-xl w-[300px] py-1 px-2">
+            <br><br>
+            <button class="bg-blue-500 text-white rounded-md py-2 px-3 m-0 hover:bg-blue-600 transition-all active:bg-blue-700">Sign up</button>
+            <div class="my-10 flex justify-center items-center">
+                <p class="text-xs text-white">
+                    Have you account already? 
+                    <a href="{% url 'login' %}" class="text-xs text-blue-400">Log in</a>
+                </p>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

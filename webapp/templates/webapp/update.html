@@ -1,0 +1,29 @@
+{% extends "webapp/base.html" %}
+{% block title %}Add New{% endblock title %}
+
+{% block content %}
+    <div class="flex flex-col justify-center items-center mt-10">
+        <h1 class="font-semibold text-white mt-10 text-3xl">Update Password</h1>
+        <form method="POST" class="flex flex-col">
+            {% csrf_token %}
+            <br><br>
+            <label class="text-white text-base">Username</label><br>
+            <input name="username" value="{{ password.username }}" type="text" required placeholder="Your username" class="rounded-xl w-[300px] py-1 px-2">
+            <br>
+            <label class="text-white text-base">Password</label><br>
+            <input name="password" value="{{ decrypted_passwords }}" type="password" required placeholder="Your password" class="rounded-xl w-[300px] py-1 px-2">
+            <br>
+            <label class="text-white text-base">Email</label><br>
+            <input name="email" value="{{ password.email }}" type="email" placeholder="Your email" class="rounded-xl w-[300px] py-1 px-2">
+            <br>
+            <label class="text-white text-base">Web/App</label><br>
+            <input name="web_or_app" value="{{ password.web_or_app }}" type="text" placeholder="URL of website or name of app" class="rounded-xl w-[300px] py-1 px-2">
+            <br>
+            <label class="text-white text-base">Note</label><br>
+            <textarea name="note" placeholder="Add your note here" class="rounded-xl w-[300px] py-1 px-2">{{ password.note }}</textarea>
+            <br><br>
+            <button onclick="alert('Update has done successfully')" class="bg-blue-500 text-white rounded-md py-2 px-3 m-0 hover:bg-blue-600 transition-all active:bg-blue-700">Update</button>
+            <br><br>
+        </form>
+    </div>
+{% endblock content %}

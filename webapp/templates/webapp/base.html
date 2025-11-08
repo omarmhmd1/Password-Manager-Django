@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %} | Password Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body class="bg-gray-900">
+    <header class="py-4 flex justify-between items-center border-b-2 border-blue-400 fixed top-0 left-0 right-0 bg-gray-900 z-10">
+        <a href="{% url 'index' %}" class="font-semibold text-blue-400 text-md mx-6 sm:text-xl">Password Manager</a>
+        <div class="space-x-4 px-6">
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="bg-blue-500 text-white rounded-xl p-2 px-4 hover:bg-blue-600 transition-all active:bg-blue-700">My Dashboard <i class="fa-solid fa-house"></i></a>
+            <a href="{% url 'logout' %}" class="bg-gray-400 text-white rounded-xl p-2 px-4 hover:bg-gray-500 transition-all active:bg-gray-600">Log out <i class="fa-solid fa-right-from-bracket"></i></a>
+        {% else %}
+            <a href="{% url 'signup' %}" class="bg-blue-500 text-white hover:bg-blue-600 transition-all active:bg-blue-700 p-2 px-4 text-2sm rounded-xl">Sign up <i class="fa-solid fa-user-plus"></i></a>
+            <a href="{% url 'login' %}" class="bg-gray-400 text-white hover:bg-gray-500 transition-all active:bg-gray-600 p-2 px-4 text-2sm rounded-xl">Log in <i class="fa-solid fa-right-to-bracket"></i></a>
+        {% endif %}
+        </div>
+    </header>
+    {% block content %}
+    {% endblock content %}
+</body>

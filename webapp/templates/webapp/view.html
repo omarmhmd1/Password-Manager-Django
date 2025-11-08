@@ -1,0 +1,48 @@
+{% extends "webapp/base.html" %}
+{% block title %}View{% endblock title %}
+
+{% block content %}
+    <div class="flex flex-col justify-center items-left mx-6 mt-10">
+        <div class="mt-10 flex items-center">
+            <h2 class="text-blue-300 text-xl">Username : </h2>
+            <p class="text-white text-xl">{{ password.username }}</p>
+        </div>
+
+        <div class="mt-10 flex items-center">
+            <h2 class="text-blue-300 text-xl">Password : </h2>
+            <p class="text-white text-xl">{{ decrypted_passwords }}</p>
+        </div>
+
+        <div class="mt-10 flex items-center">
+            <h2 class="text-blue-300 text-xl">Email : </h2>
+            <p class="text-white text-xl">{{ password.email }}</p>
+        </div>
+
+        <div class="mt-10 flex items-center">
+            <h2 class="text-blue-300 text-xl">Web/App : </h2>
+            <p class="text-white text-xl">{{ password.web_or_app }}</p>
+        </div>
+
+        <div class="mt-10 flex items-center">
+            <h2 class="text-blue-300 text-xl">State of password : </h2>
+            {% if password.state == "Strong" %}
+                <p class="text-xl text-green-400">{{ password.state }}</p>
+            {% elif password.state == "Medium" %}
+                <p class="text-xl text-yellow-500">{{ password.state }}</p>
+            {% elif password.state == "Weak" %}
+                <p class="text-xl text-orange-500">{{ password.state }}</p>
+            {% else %}
+                <p class="text-xl text-red-600">{{ password.state }}</p>
+            {% endif %}
+        </div>
+
+        <div class="mt-10 flex items-center">
+            <h2 class="text-blue-300 text-xl">Note : </h2>
+            <p class="text-white text-xl">{{ password.note }}</p>
+        </div>
+        <div class="flex items-left">
+            <a href="{% url 'update' password.id %}" class="bg-blue-500 text-white rounded-md py-3 px-6 mx-2 my-10 hover:bg-blue-600 transition-all active:bg-blue-700">Update <i class="fa-solid fa-pen"></i></a>
+            <a href="{% url 'delete_password' password.id %}" class="bg-red-500 text-white rounded-md py-3 px-6 mx-2 my-10 hover:bg-red-600 transition-all active:bg-red-700">Delete <i class="fa-solid fa-trash"></i></a>
+        </div>
+    </div>
+{% endblock content %}
